@@ -7,30 +7,30 @@
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="./assets/css/style.css">
 </head>
 <body class="w3-white">
 
   <!-- Sidebar (Hidden on small screens) -->
   <nav class="w3-sidebar w3-grey w3-bar-block w3-small w3-hide-small w3-center">
     <img src="/assets/images/voleibol.svg" style="width:80%">
-    <a href="../index.html" class="w3-bar-item w3-button w3-padding-large w3-black">
+    <a href="./index.html" class="w3-bar-item w3-button w3-padding-large w3-black">
         <i class="fa fa-home w3-xxlarge"></i>
         <p>INICIO</p>
     </a>
-    <a href="../pages/matches.html" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
+    <a href="./pages/matches.html" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
         <i class="fa fa-futbol-o w3-xxlarge"></i>
         <p>PARTIDOS</p>
     </a>
-    <a href="../pages/clubs.html" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
+    <a href="./pages/clubs.html" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
         <i class="fa fa-users w3-xxlarge"></i>
         <p>CLUBES</p>
     </a>
-    <a href="../pages/rules.html" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
+    <a href="./pages/rules.html" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
         <i class="fa fa-hand-peace-o w3-xxlarge"></i>
         <p>REGLAMENTO Y GESTOS ARBITRALES</p>
     </a>
-    <a href="../pages/news.html" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
+    <a href="./pages/news.html" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
         <i class="fa fa-newspaper-o w3-xxlarge"></i>
         <p>NOTICIAS</p>
     </a>
@@ -40,19 +40,19 @@
   <!-- Navbar on small screens -->
   <div class="w3-bottom w3-hide-large w3-hide-medium" id="myNavbar">
     <div class="w3-bar w3-grey w3-center w3-small">
-      <a href="../index.html" class="w3-bar-item w3-button section" onclick="openSection(this)" style="width:20% !important">
+      <a href="./index.html" class="w3-bar-item w3-button section" onclick="openSection(this); return false;" style="width:20% !important">
         <i class="fa fa-home w3-xlarge"></i>
       </a>
-      <a href="../pages/matches.html" class="w3-bar-item w3-button section" onclick="openSection(this)" style="width:20% !important">
+      <a href="./pages/matches.html" class="w3-bar-item w3-button section" onclick="openSection(this)" style="width:20% !important">
         <i class="fa fa-futbol-o w3-xlarge"></i>
       </a>
-      <a href="../pages/clubs.html" class="w3-bar-item w3-button section" onclick="openSection(this)" style="width:20% !important">
+      <a href="./pages/clubs.html" class="w3-bar-item w3-button section" onclick="openSection(this)" style="width:20% !important">
         <i class="fa fa-users w3-xlarge"></i>
       </a>
-      <a href="../pages/rules.html" class="w3-bar-item w3-button section" onclick="openSection(this)" style="width:20% !important">
+      <a href="./pages/rules.html" class="w3-bar-item w3-button section" onclick="openSection(this)" style="width:20% !important">
         <i class="fa fa-hand-peace-o w3-xlarge"></i>
       </a>
-      <a href="../pages/news.html" class="w3-bar-item w3-button section" onclick="openSection(this)" style="width:20% !important">
+      <a href="./pages/news.html" class="w3-bar-item w3-button section" onclick="openSection(this)" style="width:20% !important">
         <i class="fa fa-newspaper-o w3-xlarge"></i>
       </a>
     </div>
@@ -60,10 +60,21 @@
 
   <!-- Home Content -->
   <div class="w3-padding-large" id="main">
-    <p>Hola Partidos</p>
+    <p>Hola Home</p>
   </div>
 
-  <script src="../assets/scripts/script.js"></script>
+  <button class="w3-padding-large w3-red w3-center anadir" onclick="myFunction(this)" style="width:20%">
+    <p id="demo" >Base 1</p>
+  </button>
+  <button class="w3-padding-large w3-center anadir" onclick="myFunction(this)" style="width:20%">
+    <p id="demo" >Base 2</p>
+  </button>
+  <button class="w3-padding-large w3-center anadir" onclick="myFunction(this)" style="width:20%">
+    <p id="demo" >Base 3</p>
+  </button>
+
+
+  <script src="./assets/scripts/script.js"></script>
 
 </body>
 </html>
