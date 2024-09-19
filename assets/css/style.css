@@ -29,7 +29,7 @@ body, h1,h2,h3,h4,h5,h6 {
 
 /* Slide Infinito */
 .slider {
-    width: 90vw;
+    width: 80vw;
     height: auto;
     margin: auto;
     overflow: hidden;
@@ -39,8 +39,8 @@ body, h1,h2,h3,h4,h5,h6 {
 
 .slider .slide-track {
     display: flex;
-    animation: scroll 5s linear infinite;
-    -webkit-animation: scroll 5s linear infinite;
+    animation: scroll 3s linear infinite;
+    -webkit-animation: scroll 3s linear infinite;
     width: calc(200px * 16);
 }
 
@@ -49,7 +49,7 @@ body, h1,h2,h3,h4,h5,h6 {
 }
 
 .slider .slide .infinity {
-    width: 200px;
+    width: 100%;
 }
 
 .infinity {
