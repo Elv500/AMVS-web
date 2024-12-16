@@ -1,12 +1,12 @@
 import './App.css';
-import Sidebar from './components/Sidebar'; // Importa el Sidebar
+import Sidebar from './components/Sidebar';
 import MyRoutes from './routers/routes';
 
 function App() {
   return (
     <>
-      <Sidebar /> {/* Agregamos el Sidebar */}
-      <MyRoutes /> {/* Rutas de la aplicación */}
+      <Sidebar/>
+      <MyRoutes />
     </>
   );
 }
