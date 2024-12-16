@@ -72,7 +72,9 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, setSidebarOpen }) => {
             {sidebarOpen && 'Menu'}
           </Typography>
           <IconButton onClick={() => setSidebarOpen(!sidebarOpen)}>
-            <MenuIcon />
+            <MenuIcon 
+            sx={{color:'#74C0FC'}} //Color de Icono Menu
+            />
           </IconButton>
         </Box>
 
