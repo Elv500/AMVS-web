@@ -25,11 +25,11 @@ body, html, #root {
 }
 
 .main-content.collapsed {
-  margin-left: 80px; /* Ancho del sidebar comprimido */
+  margin-left: 60px; /* Ancho del sidebar comprimido */
 }
 
 @media (max-width: 768px) {
-  .main-content.expanded, .main-content.collapsed {
-    margin-left: 0;
+  .main-content {
+    margin-left: 0; /* Evita el desplazamiento en dispositivos móviles */
   }
 }

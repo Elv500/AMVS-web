@@ -27,10 +27,15 @@ import {
   Menu as MenuIcon,
 } from '@mui/icons-material';
 
-const Sidebar: React.FC = () => {
+// Props para controlar el sidebar desde el App.tsx
+interface SidebarProps {
+  sidebarOpen: boolean;
+  setSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, setSidebarOpen }) => {
   const [openPartidos, setOpenPartidos] = useState(false);
   const [openClubs, setOpenClubs] = useState(false);
-  const [sidebarOpen, setSidebarOpen] = useState(true);
 
   const handleTogglePartidos = () => setOpenPartidos(!openPartidos);
   const handleToggleClubs = () => setOpenClubs(!openClubs);
@@ -47,6 +52,11 @@ const Sidebar: React.FC = () => {
             width: sidebarOpen ? 240 : 60,
             boxSizing: 'border-box',
             transition: 'width 0.3s ease',
+            backgroundColor: '#183153', //Color de fondo
+            color: '#74C0FC', //Color del texto
+          },
+          '& .MuiListItemIcon-root': {
+            color: '#74C0FC', // Color de iconos
           },
         }}
       >
