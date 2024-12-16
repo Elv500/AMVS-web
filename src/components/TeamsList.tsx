@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import { TextField, Stack, Button, Container } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 
@@ -19,16 +20,13 @@ const TeamsList: React.FC = () => {
         fetchTeams();
     }, []);
 
-    const fetchTeams = () => {
-        fetch('http://localhost:8000/api/teams')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Error al obtener los equipos');
-                }
-                return response.json();
-            })
-            .then(data => setTeams(data))
-            .catch(error => setError(error.message));
+    const fetchTeams = async () => {
+        try {
+            const response = await axios.get('http://localhost:8000/api/teams');
+            setTeams(response.data);
+        } catch (error) {
+            setError('Error al obtener los equipos');
+        }
     };
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -36,42 +34,35 @@ const TeamsList: React.FC = () => {
         setNewTeam({ ...newTeam, [name]: value });
     };
 
-    const createTeam = () => {
-        fetch('http://localhost:8000/api/teams', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(newTeam),
-        })
-            .then(response => response.json())
-            .then(data => {
-                setTeams([...teams, data]);
-                setNewTeam({ name: '', coach: '' });
-            })
-            .catch(error => setError(error.message));
+    const createTeam = async () => {
+        try {
+            const response = await axios.post('http://localhost:8000/api/teams', newTeam);
+            setTeams([...teams, response.data]);
+            setNewTeam({ name: '', coach: '' });
+        } catch (error) {
+            setError('Error al crear el equipo');
+        }
     };
 
-    const updateTeam = (id: number) => {
-        fetch(`http://localhost:8000/api/teams/${id}`, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(newTeam),
-        })
-            .then(response => response.json())
-            .then(data => {
-                setTeams(teams.map(team => (team.id === id ? data : team)));
-                setIsEditing(false);
-                setEditTeamId(null);
-                setNewTeam({ name: '', coach: '' });
-            })
-            .catch(error => setError(error.message));
+    const updateTeam = async (id: number) => {
+        try {
+            const response = await axios.put(`http://localhost:8000/api/teams/${id}`, newTeam);
+            setTeams(teams.map(team => (team.id === id ? response.data : team)));
+            setIsEditing(false);
+            setEditTeamId(null);
+            setNewTeam({ name: '', coach: '' });
+        } catch (error) {
+            setError('Error al actualizar el equipo');
+        }
     };
 
-    const deleteTeam = (id: number) => {
-        fetch(`http://localhost:8000/api/teams/${id}`, { method: 'DELETE' })
-            .then(() => {
-                setTeams(teams.filter(team => team.id !== id));
-            })
-            .catch(error => setError(error.message));
+    const deleteTeam = async (id: number) => {
+        try {
+            await axios.delete(`http://localhost:8000/api/teams/${id}`);
+            setTeams(teams.filter(team => team.id !== id));
+        } catch (error) {
+            setError('Error al eliminar el equipo');
+        }
     };
 
     const handleSubmit = (e: React.FormEvent) => {
