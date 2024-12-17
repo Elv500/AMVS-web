@@ -41,6 +41,26 @@ const gestures: GestoArbitral[] = [
     description: 'Se señala una infracción de la rotación en el equipo.',
     gif: 'https://media.giphy.com/media/UVr38ab5iEwtUhgCSC/giphy.gif',
   },
+  {
+    name: 'Saque Incorrecto',
+    description: 'El árbitro indica un saque realizado de manera incorrecta.',
+    gif: 'https://media.giphy.com/media/UVr38ab5iEwtUhgCSC/giphy.gif',
+  },
+  {
+    name: 'Toque de Red',
+    description: 'El árbitro señala un toque de red por parte de un jugador.',
+    gif: 'https://media.giphy.com/media/UVr38ab5iEwtUhgCSC/giphy.gif',
+  },
+  {
+    name: 'Falta de Rotación',
+    description: 'Se señala una infracción de la rotación en el equipo.',
+    gif: 'https://media.giphy.com/media/UVr38ab5iEwtUhgCSC/giphy.gif',
+  },
+  {
+    name: 'Falta de Rotación',
+    description: 'Se señala una infracción de la rotación en el equipo.',
+    gif: 'https://media.giphy.com/media/UVr38ab5iEwtUhgCSC/giphy.gif',
+  },
 ];
 
 const Rules: React.FC = () => {
