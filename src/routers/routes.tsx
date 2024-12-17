@@ -13,6 +13,8 @@ import Equipos from '../pages/Clubs/Equipos';
 import Jugadores from '../pages/Clubs/Jugadores';
 import Coaches from '../pages/Clubs/Entrenadores';
 
+import EquipoDetalles from '../pages/Clubs/EquipoDetalles';
+
 function MyRoutes() {
   return (
     <Routes>
@@ -28,6 +30,8 @@ function MyRoutes() {
       <Route path="/clubs/equipos" element={<Equipos />} />
       <Route path="/clubs/jugadores" element={<Jugadores />} />
       <Route path="/clubs/entrenadores" element={<Coaches />} />
+
+      <Route path="/clubs/equipos/:id" element={<EquipoDetalles />} />
 
       {/* Reglamento y Noticias */}
       <Route path="/rules" element={<Rules />} />

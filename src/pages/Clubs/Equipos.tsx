@@ -13,6 +13,7 @@ import {
   Typography,
 } from '@mui/material';
 import { Add, Delete, Edit } from '@mui/icons-material';
+import { useNavigate } from 'react-router-dom'; // Importar navegación
 import teamService from '../../services/teamService';
 import AddEditTeamModal from '../../components/modals/AddEditTeamModal';
 import ConfirmationModal from '../../components/modals/ConfirmationModal';
@@ -35,17 +36,19 @@ const Equipos: React.FC = () => {
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
   const [selectedTeam, setSelectedTeam] = useState<Team | null>(null);
   const [feedbackMessage, setFeedbackMessage] = useState('');
+  const navigate = useNavigate(); // Hook de navegación
 
   useEffect(() => {
     loadTeams();
   }, []);
 
+  //---
+  loading && null; // Solo para "usar" la variable
+  //---
+
   const loadTeams = async () => {
     setLoading(true);
     try {
-      //-----------
-      if (loading) console.log('Cargando equipos...');
-      //----------
       const response = await teamService.getAll();
       setTeams(response.data);
     } catch (error) {
@@ -72,11 +75,9 @@ const Equipos: React.FC = () => {
   const handleAddOrEditTeam = async (formData: FormData) => {
     try {
       if (selectedTeam) {
-        // Editar equipo
         await teamService.update(selectedTeam.id, formData);
         setFeedbackMessage('Equipo actualizado correctamente.');
       } else {
-        // Crear equipo
         await teamService.create(formData);
         setFeedbackMessage('Equipo creado correctamente.');
       }
@@ -121,7 +122,24 @@ const Equipos: React.FC = () => {
             {teams.map((team) => (
               <TableRow key={team.id}>
                 <TableCell>{team.id}</TableCell>
-                <TableCell>{team.name}</TableCell>
+                {/* Botón que redirige a los detalles del equipo */}
+                <TableCell>
+                  <Button
+                    variant="contained"
+                    onClick={() => navigate(`/clubs/equipos/${team.id}`)}
+                    sx={{
+                      backgroundColor: '#183153',
+                      color: '#fff',
+                      borderRadius: '20px',
+                      paddingX: '20px',
+                      textTransform: 'none',
+                      width: '125px',
+                      '&:hover': { backgroundColor: '#1565c0' },
+                    }}
+                  >
+                  {team.name}
+                  </Button>
+                </TableCell>
                 <TableCell>{team.players.length}</TableCell>
                 <TableCell>
                   {team.logo && (
