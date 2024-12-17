@@ -11,6 +11,7 @@ import PartidosDia from '../pages/Partidos/PartidosDia';
 // Clubs
 import Equipos from '../pages/Clubs/Equipos';
 import Jugadores from '../pages/Clubs/Jugadores';
+import Coaches from '../pages/Clubs/Entrenadores';
 
 function MyRoutes() {
   return (
@@ -26,6 +27,7 @@ function MyRoutes() {
       {/* Clubs */}
       <Route path="/clubs/equipos" element={<Equipos />} />
       <Route path="/clubs/jugadores" element={<Jugadores />} />
+      <Route path="/clubs/entrenadores" element={<Coaches />} />
 
       {/* Reglamento y Noticias */}
       <Route path="/rules" element={<Rules />} />
