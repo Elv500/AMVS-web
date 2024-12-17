@@ -122,10 +122,14 @@ const News: React.FC = () => {
                     alt="PDF Thumbnail"
                   />
                 ) : (
-                  <CardMedia
+                    <CardMedia
                     component="img"
                     height="140"
-                    image={`${BASE_URL}/${item.attachment.replace(/^\/?/, '')}`}
+                    image={
+                      item.attachment && !item.attachment.endsWith('.pdf')
+                        ? `${BASE_URL}/${item.attachment.replace(/^\/?/, '')}`
+                        : DEFAULT_PDF_IMAGE
+                    }
                     alt={item.title}
                   />
                 )}
@@ -149,9 +153,11 @@ const News: React.FC = () => {
                     <Button
                       variant="outlined"
                       startIcon={<Visibility />}
-                      onClick={() =>
-                        setPdfUrl(`${BASE_URL}/${item.attachment.replace(/^\/?/, '')}`)
-                      }
+                      onClick={() => {
+                        if (item.attachment) {
+                          setPdfUrl(`${BASE_URL}/${item.attachment.replace(/^\/?/, '')}`);
+                        }
+                      }}
                     >
                       Ver PDF
                     </Button>
