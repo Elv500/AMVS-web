@@ -43,6 +43,9 @@ const Equipos: React.FC = () => {
   const loadTeams = async () => {
     setLoading(true);
     try {
+      //-----------
+      if (loading) console.log('Cargando equipos...');
+      //----------
       const response = await teamService.getAll();
       setTeams(response.data);
     } catch (error) {
@@ -164,7 +167,7 @@ const Equipos: React.FC = () => {
         open={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         onSubmit={handleAddOrEditTeam}
-        initialData={selectedTeam}
+        initialData={selectedTeam ? { name: selectedTeam.name, logo: selectedTeam.logo } : undefined}
       />
       <ConfirmationModal
         open={isConfirmOpen}
