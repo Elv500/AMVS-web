@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Button, Typography, Grid, Card, CardContent, CardActions } from '@mui/material';
+import { Box, Button, Typography, Grid, Card, CardContent } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { SportsVolleyball, Groups, Assignment, Notifications } from '@mui/icons-material';
 
@@ -65,7 +65,7 @@ const Home: React.FC = () => {
             color="secondary"
             size="large"
             startIcon={<Notifications />}
-            onClick={() => navigate('/noticias')}
+            onClick={() => navigate('/news')}
           >
             Noticias
           </Button>
