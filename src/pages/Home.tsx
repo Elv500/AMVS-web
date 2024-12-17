@@ -12,7 +12,7 @@ const Home: React.FC = () => {
         textAlign: 'center',
         minHeight: '100vh',
         p: 4,
-        background: 'linear-gradient(to right,rgb(11, 61, 105), #21CBF3)',
+        background: 'linear-gradient(to right,#183153, #21CBF3)',
         color: 'white',
       }}
     >
