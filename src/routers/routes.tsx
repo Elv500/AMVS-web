@@ -14,6 +14,7 @@ import Jugadores from '../pages/Clubs/Jugadores';
 import Coaches from '../pages/Clubs/Entrenadores';
 
 import EquipoDetalles from '../pages/Clubs/EquipoDetalles';
+import Canchas from '../pages/Clubs/Canchas';
 
 function MyRoutes() {
   return (
@@ -32,6 +33,7 @@ function MyRoutes() {
       <Route path="/clubs/entrenadores" element={<Coaches />} />
 
       <Route path="/clubs/equipos/:id" element={<EquipoDetalles />} />
+      <Route path="/clubs/canchas" element={<Canchas />} />
 
       {/* Reglamento y Noticias */}
       <Route path="/rules" element={<Rules />} />

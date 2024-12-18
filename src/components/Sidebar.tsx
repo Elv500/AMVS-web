@@ -143,10 +143,17 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, setSidebarOpen }) => {
                 {sidebarOpen && <ListItemText primary="Jugadores" />}
               </ListItemButton>
               <ListItemButton component={Link} to="/clubs/entrenadores" sx={{ pl: 4 }}>
-              <ListItemIcon>
-                <PersonIcon />
-              </ListItemIcon>
-              {sidebarOpen && <ListItemText primary="Entrenadores" />}
+                <ListItemIcon>
+                  <PersonIcon />
+                </ListItemIcon>
+                {sidebarOpen && <ListItemText primary="Entrenadores" />}
+              </ListItemButton>
+              {/* Nueva opción - Canchas */}
+              <ListItemButton component={Link} to="/clubs/canchas" sx={{ pl: 4 }}>
+                <ListItemIcon>
+                  <SportsIcon />
+                </ListItemIcon>
+                {sidebarOpen && <ListItemText primary="Canchas" />}
               </ListItemButton>
             </List>
           </Collapse>
