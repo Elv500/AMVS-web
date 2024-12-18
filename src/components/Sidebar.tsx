@@ -25,6 +25,7 @@ import {
   ExpandLess,
   ExpandMore,
   Menu as MenuIcon,
+  EmojiEvents as TournamentIcon,
 } from '@mui/icons-material';
 
 // Props para controlar el sidebar desde el App.tsx
@@ -154,6 +155,12 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, setSidebarOpen }) => {
                   <SportsIcon />
                 </ListItemIcon>
                 {sidebarOpen && <ListItemText primary="Canchas" />}
+              </ListItemButton>
+              <ListItemButton component={Link} to="/clubs/tournaments" sx={{ pl: 4 }}>
+                <ListItemIcon>
+                  <TournamentIcon  />
+                </ListItemIcon>
+                {sidebarOpen && <ListItemText primary="Torneos" />}
               </ListItemButton>
             </List>
           </Collapse>
