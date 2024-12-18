@@ -20,7 +20,7 @@ interface AddEditTeamModalProps {
 interface Coach {
   id: number;
   name: string;
-  teams: any[]; // Lista de equipos asociados al entrenador
+  teams: any[];
 }
 
 const AddEditTeamModal: React.FC<AddEditTeamModalProps> = ({
@@ -32,23 +32,14 @@ const AddEditTeamModal: React.FC<AddEditTeamModalProps> = ({
   const [name, setName] = useState('');
   const [logo, setLogo] = useState<File | null>(null);
   const [existingLogo, setExistingLogo] = useState<string | null>(null);
+  const [newLogoPreview, setNewLogoPreview] = useState<string | null>(null);
   const [coachId, setCoachId] = useState<number | ''>('');
   const [coaches, setCoaches] = useState<Coach[]>([]);
 
   useEffect(() => {
     loadCoaches();
-    if (initialData) {
-      setName(initialData.name);
-      setCoachId(initialData.coach_id || '');
-      if (initialData.logo) {
-        setExistingLogo(initialData.logo); // Guardar el logo existente
-      }
-    } else {
-      setName('');
-      setCoachId('');
-      setExistingLogo(null);
-    }
-  }, [initialData]);
+    resetModalState();
+  }, [initialData, open]);
 
   const loadCoaches = async () => {
     try {
@@ -59,9 +50,32 @@ const AddEditTeamModal: React.FC<AddEditTeamModalProps> = ({
     }
   };
 
+  const resetModalState = () => {
+    setName(initialData?.name || '');
+    setCoachId(initialData?.coach_id || '');
+    setExistingLogo(initialData?.logo || null);
+    setNewLogoPreview(null);
+    setLogo(null);
+  };
+
   const handleLogoChange = (file: File | null) => {
+    if (newLogoPreview) {
+      URL.revokeObjectURL(newLogoPreview); // Limpiar la URL temporal previa
+    }
     setLogo(file);
-    setExistingLogo(null); // Si sube un nuevo logo, se oculta la vista previa existente
+    if (file) {
+      setNewLogoPreview(URL.createObjectURL(file)); // Generar nueva URL temporal
+    } else {
+      setNewLogoPreview(null);
+    }
+  };
+
+  const handleClose = () => {
+    if (newLogoPreview) {
+      URL.revokeObjectURL(newLogoPreview); // Limpiar URL temporal
+    }
+    resetModalState(); // Resetear estados del modal
+    onClose();
   };
 
   const handleSubmit = () => {
@@ -70,11 +84,11 @@ const AddEditTeamModal: React.FC<AddEditTeamModalProps> = ({
     if (logo) formData.append('logo', logo);
     if (coachId) formData.append('coach_id', coachId.toString());
     onSubmit(formData);
-    onClose();
+    handleClose();
   };
 
   return (
-    <Modal open={open} onClose={onClose}>
+    <Modal open={open} onClose={handleClose}>
       <Box
         sx={{
           position: 'absolute',
@@ -98,12 +112,12 @@ const AddEditTeamModal: React.FC<AddEditTeamModalProps> = ({
           margin="normal"
         />
 
-        {/* Select para elegir entrenador */}
         <Select
           fullWidth
           value={coachId}
           onChange={(e) => setCoachId(Number(e.target.value))}
           displayEmpty
+          sx={{ mt: 2 }}
         >
           <MenuItem value="" disabled>
             Seleccionar Entrenador
@@ -119,15 +133,15 @@ const AddEditTeamModal: React.FC<AddEditTeamModalProps> = ({
           ))}
         </Select>
 
-        {/* Vista previa del logo existente */}
-        {existingLogo && !logo && (
+        {/* Vista previa del logo */}
+        {newLogoPreview ? (
           <Box mt={2} textAlign="center">
             <Typography variant="body2" color="textSecondary">
-              Logo Actual:
+              Vista Previa del Nuevo Logo:
             </Typography>
             <img
-              src={`http://localhost:8000/storage/${existingLogo}`}
-              alt="Logo Actual"
+              src={newLogoPreview}
+              alt="Nuevo Logo"
               style={{
                 width: '100px',
                 height: '100px',
@@ -136,9 +150,26 @@ const AddEditTeamModal: React.FC<AddEditTeamModalProps> = ({
               }}
             />
           </Box>
+        ) : (
+          existingLogo && (
+            <Box mt={2} textAlign="center">
+              <Typography variant="body2" color="textSecondary">
+                Logo Actual:
+              </Typography>
+              <img
+                src={`http://localhost:8000/storage/${existingLogo}`}
+                alt="Logo Actual"
+                style={{
+                  width: '100px',
+                  height: '100px',
+                  objectFit: 'contain',
+                  marginTop: '10px',
+                }}
+              />
+            </Box>
+          )
         )}
 
-        {/* Input para subir un nuevo logo */}
         <Button variant="outlined" component="label" fullWidth sx={{ mt: 2 }}>
           {logo ? 'Cambiar Logo' : 'Subir Logo'}
           <input
@@ -150,7 +181,7 @@ const AddEditTeamModal: React.FC<AddEditTeamModalProps> = ({
         </Button>
 
         <Box mt={2} display="flex" justifyContent="space-between">
-          <Button variant="outlined" color="error" onClick={onClose}>
+          <Button variant="outlined" color="error" onClick={handleClose}>
             Cancelar
           </Button>
           <Button
