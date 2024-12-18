@@ -11,7 +11,10 @@ const teamService = {
     return axios.post(`${BASE_URL}/${id}`, data);
   },
   delete: (id: number) => axios.delete(`${BASE_URL}/${id}`),
-};
 
+  // Nueva función para obtener la tabla de posiciones por torneo
+  getLeaderboardByTournament: (tournamentId: number) =>
+    axios.get(`${BASE_URL}/leaderboard/tournament/${tournamentId}`),
+};
 
 export default teamService;
