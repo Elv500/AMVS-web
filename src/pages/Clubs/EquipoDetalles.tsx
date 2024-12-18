@@ -1,6 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Box, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button } from '@mui/material';
+import {
+  Box,
+  Typography,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  Button,
+  Card,
+  CardContent,
+  Avatar,
+} from '@mui/material';
 import teamService from '../../services/teamService';
 
 interface Player {
@@ -11,10 +25,18 @@ interface Player {
   ci_number: string;
 }
 
+interface Coach {
+  id: number;
+  name: string;
+  email: string;
+  phone: string;
+}
+
 interface Team {
   id: number;
   name: string;
   logo: string | null;
+  coach: Coach | null;
   players: Player[];
 }
 
@@ -44,11 +66,13 @@ const EquipoDetalles: React.FC = () => {
 
   return (
     <Box p={3}>
-      <Button variant="outlined" onClick={() => navigate(-1)}>Volver</Button>
-      <Box display="flex" alignItems="center" justifyContent="space-between" mb={3}>
-        <Box>
-          <Typography variant="h4">{team.name}</Typography>
-        </Box>
+      <Button variant="outlined" onClick={() => navigate(-1)}>
+        Volver
+      </Button>
+      <Box display="flex" alignItems="center" justifyContent="space-between" my={3}>
+        <Typography variant="h4" fontWeight="bold">
+          {team.name}
+        </Typography>
         {team.logo && (
           <img
             src={`${BASE_URL}${team.logo}`}
@@ -60,7 +84,34 @@ const EquipoDetalles: React.FC = () => {
         )}
       </Box>
 
-      <Typography variant="h5" mb={2}>Jugadores</Typography>
+      {/* Información del Entrenador */}
+      {team.coach ? (
+        <Card sx={{ mb: 3, p: 2, display: 'flex', alignItems: 'center', background: '#183153', color:'white'}}>
+          <Avatar sx={{ width: 80, height: 80, mr: 3 }}>
+            {team.coach.name.charAt(0).toUpperCase()}
+          </Avatar>
+          <CardContent>
+            <Typography variant="h5" fontWeight="bold">
+              Entrenador: {team.coach.name}
+            </Typography>
+            <Typography variant="body1">
+              <strong>Email:</strong> {team.coach.email}
+            </Typography>
+            <Typography variant="body1">
+              <strong>Teléfono:</strong> {team.coach.phone || 'No registrado'}
+            </Typography>
+          </CardContent>
+        </Card>
+      ) : (
+        <Typography variant="h6" color="textSecondary" mb={3}>
+          Sin entrenador asignado
+        </Typography>
+      )}
+
+      {/* Tabla de Jugadores */}
+      <Typography variant="h5" mb={2} fontWeight="bold">
+        Jugadores
+      </Typography>
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
