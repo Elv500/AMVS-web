@@ -13,7 +13,7 @@ import {
   Typography,
 } from '@mui/material';
 import { Add, Delete, Edit } from '@mui/icons-material';
-import { useNavigate } from 'react-router-dom'; // Importar navegación
+import { useNavigate } from 'react-router-dom';
 import teamService from '../../services/teamService';
 import AddEditTeamModal from '../../components/modals/AddEditTeamModal';
 import ConfirmationModal from '../../components/modals/ConfirmationModal';
@@ -23,8 +23,9 @@ interface Team {
   id: number;
   name: string;
   logo: string | null;
-  players: any[]; // Array de jugadores asociados
-  created_at: string; // Fecha de registro
+  players: any[];
+  coach?: { id: number; name: string }; // Entrenador asociado
+  created_at: string;
 }
 
 const BASE_URL = 'http://localhost:8000/storage/';
@@ -36,15 +37,13 @@ const Equipos: React.FC = () => {
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
   const [selectedTeam, setSelectedTeam] = useState<Team | null>(null);
   const [feedbackMessage, setFeedbackMessage] = useState('');
-  const navigate = useNavigate(); // Hook de navegación
+  const navigate = useNavigate();
 
   useEffect(() => {
     loadTeams();
   }, []);
 
-  //---
-  loading && null; // Solo para "usar" la variable
-  //---
+  loading && null;
 
   const loadTeams = async () => {
     setLoading(true);
@@ -98,7 +97,7 @@ const Equipos: React.FC = () => {
           variant="contained"
           startIcon={<Add />}
           onClick={() => {
-            setSelectedTeam(null); // Limpiar selección
+            setSelectedTeam(null);
             setIsModalOpen(true);
           }}
         >
@@ -113,6 +112,7 @@ const Equipos: React.FC = () => {
               <TableCell>ID</TableCell>
               <TableCell>Nombre</TableCell>
               <TableCell>Jugadores</TableCell>
+              <TableCell>Entrenador</TableCell>
               <TableCell>Logo</TableCell>
               <TableCell>Fecha de Registro</TableCell>
               <TableCell>Acciones</TableCell>
@@ -122,7 +122,6 @@ const Equipos: React.FC = () => {
             {teams.map((team) => (
               <TableRow key={team.id}>
                 <TableCell>{team.id}</TableCell>
-                {/* Botón que redirige a los detalles del equipo */}
                 <TableCell>
                   <Button
                     variant="contained"
@@ -137,23 +136,17 @@ const Equipos: React.FC = () => {
                       '&:hover': { backgroundColor: '#1565c0' },
                     }}
                   >
-                  {team.name}
+                    {team.name}
                   </Button>
                 </TableCell>
                 <TableCell>{team.players.length}</TableCell>
+                <TableCell>{team.coach ? team.coach.name : 'Sin asignar'}</TableCell>
                 <TableCell>
                   {team.logo && (
-                    <img
-                      src={`${BASE_URL}${team.logo}`}
-                      alt={team.name}
-                      width="50"
-                      height="50"
-                    />
+                    <img src={`${BASE_URL}${team.logo}`} alt={team.name} width="50" height="50" />
                   )}
                 </TableCell>
-                <TableCell>
-                  {new Date(team.created_at).toLocaleDateString()}
-                </TableCell>
+                <TableCell>{new Date(team.created_at).toLocaleDateString()}</TableCell>
                 <TableCell>
                   <IconButton
                     color="primary"
@@ -185,7 +178,11 @@ const Equipos: React.FC = () => {
         open={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         onSubmit={handleAddOrEditTeam}
-        initialData={selectedTeam ? { name: selectedTeam.name, logo: selectedTeam.logo } : undefined}
+        initialData={
+          selectedTeam
+            ? { name: selectedTeam.name, logo: selectedTeam.logo, coach_id: selectedTeam.coach?.id }
+            : undefined
+        }
       />
       <ConfirmationModal
         open={isConfirmOpen}
