@@ -4,6 +4,7 @@ import Rules from '../pages/Rules';
 import News from '../pages/News';
 
 // Partidos
+import GenerarPartidos from '../pages/Partidos/GenerarPartidos';
 import RolPartidos from '../pages/Partidos/RolPartidos';
 import TablaPosiciones from '../pages/Partidos/TablaPosiciones';
 import PartidosDia from '../pages/Partidos/PartidosDia';
@@ -24,6 +25,7 @@ function MyRoutes() {
       <Route path="/" element={<Home />} />
 
       {/* Partidos */}
+      <Route path="/matches/generar" element={<GenerarPartidos />} />
       <Route path="/matches/partidos-dia" element={<PartidosDia />} />
       <Route path="/matches/rol-partidos" element={<RolPartidos />} />
       <Route path="/matches/tabla-posiciones" element={<TablaPosiciones />} />

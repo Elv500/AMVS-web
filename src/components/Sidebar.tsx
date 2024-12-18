@@ -28,6 +28,7 @@ import {
   EmojiEvents as TournamentIcon,
 } from '@mui/icons-material';
 
+
 // Props para controlar el sidebar desde el App.tsx
 interface SidebarProps {
   sidebarOpen: boolean;
@@ -100,6 +101,12 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, setSidebarOpen }) => {
           </ListItemButton>
           <Collapse in={openPartidos} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
+              <ListItemButton component={Link} to="/matches/generar" sx={{ pl: 4 }}>
+                <ListItemIcon>
+                  <EventIcon />
+                </ListItemIcon>
+                {sidebarOpen && <ListItemText primary="Generar Rol de Partidos" />}
+              </ListItemButton>
               <ListItemButton component={Link} to="/matches/rol-partidos" sx={{ pl: 4 }}>
                 <ListItemIcon>
                   <CalendarMonthIcon />
